@@ -33,6 +33,12 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/paintings", async (req, res) => {
+      const cursor = drawingAndPainting.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.get("/subCategories", async (req, res) => {
       const cursor = subCategories.find();
       const result = await cursor.toArray();
