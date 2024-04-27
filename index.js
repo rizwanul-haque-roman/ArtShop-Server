@@ -26,8 +26,9 @@ async function run() {
     const drawingAndPainting = database.collection("drawingAndPainting");
     const subCategories = database.collection("subCategories");
 
-    app.get("/paintings", async (req, res) => {
-      const cursor = drawingAndPainting.find();
+    app.get("/featured", async (req, res) => {
+      const query = { featured: "yes" };
+      const cursor = drawingAndPainting.find(query);
       const result = await cursor.toArray();
       res.send(result);
     });
