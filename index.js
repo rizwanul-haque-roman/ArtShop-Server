@@ -25,6 +25,7 @@ async function run() {
     const database = client.db("art_and_crafts");
     const drawingAndPainting = database.collection("drawingAndPainting");
     const subCategories = database.collection("subCategories");
+    const testimonial = database.collection("testimonial");
 
     app.get("/featured", async (req, res) => {
       const query = { featured: "yes" };
@@ -35,6 +36,12 @@ async function run() {
 
     app.get("/paintings", async (req, res) => {
       const cursor = drawingAndPainting.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.get("/testimonial", async (req, res) => {
+      const cursor = testimonial.find();
       const result = await cursor.toArray();
       res.send(result);
     });
