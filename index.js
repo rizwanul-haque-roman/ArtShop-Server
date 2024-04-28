@@ -59,6 +59,12 @@ async function run() {
       res.send(result);
     });
 
+    app.post("/paintings", async (req, res) => {
+      const painting = req.body;
+      const result = await drawingAndPainting.insertOne(painting);
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
