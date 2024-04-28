@@ -74,6 +74,40 @@ async function run() {
       res.send(result);
     });
 
+    app.put("/paintings/:id", async (req, res) => {
+      const id = req.params.id;
+      const painting = req.body;
+      const filter = { _id: new ObjectId(id) };
+      console.log(id);
+      const options = { upsert: true };
+      const updatedPainting = {
+        $set: {
+          image: painting.image,
+          item_name: painting.item_name,
+          subcategory_Name: painting.subcategory_Name,
+          short_description: painting.short_description,
+          price: painting.price,
+          rating: painting.rating,
+          customization: painting.customization,
+          processing_time: painting.processing_time,
+          stockStatus: painting.stockStatus,
+        },
+      };
+
+      app.delete("/paintings/:id", async (req, res) => {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const result = await drawingAndPainting.deleteOne(query);
+        res.send(res);
+      });
+
+      const result = await drawingAndPainting.updateOne(
+        filter,
+        updatedPainting,
+        options
+      );
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
