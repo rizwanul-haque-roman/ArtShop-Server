@@ -40,6 +40,15 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/myPaintings", async (req, res) => {
+      const email = req.query.email;
+      console.log(email);
+      const query = { user_email: email };
+      const cursor = drawingAndPainting.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.get("/testimonial", async (req, res) => {
       const cursor = testimonial.find();
       const result = await cursor.toArray();
