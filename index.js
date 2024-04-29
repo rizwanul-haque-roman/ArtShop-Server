@@ -42,7 +42,7 @@ async function run() {
 
     app.get("/myPaintings", async (req, res) => {
       const email = req.query.email;
-      console.log(email);
+      //   console.log(email);
       const query = { user_email: email };
       const cursor = drawingAndPainting.find(query);
       const result = await cursor.toArray();
@@ -65,6 +65,16 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await drawingAndPainting.findOne(query);
+      res.send(result);
+    });
+
+    app.get("/subcategory/:subcategory", async (req, res) => {
+      const subcategory = req.params.subcategory;
+      console.log(subcategory);
+      const query = { subcategory_Name: subcategory };
+      const cursor = drawingAndPainting.find(query);
+      const result = await cursor.toArray();
+      console.log(result);
       res.send(result);
     });
 
